@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="/assets/"
+        data-template="vertical-menu-template-free"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>InfoScript - Library</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="/assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="/assets/js/config.js"></script>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+            <div class="menu-header text-center py-3">
+                <img src="/logo_white.png"
+                     alt="Logo"
+                     class="sidebar-logo">
+            </div>
+
+            <ul class="menu-inner py-1">
+                <li class="menu-item ">
+                    <a th:href="@{dashboard}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Dashboard</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item active">
+                    <a th:href="@{allotment}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-book-reader"></i>
+                        <div data-i18n="Analytics">Book Allotment</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item ">
+                    <a th:href="@{student}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-face"></i>
+                        <div data-i18n="Analytics">Students</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item ">
+                    <a th:href="@{vendor}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-buildings"></i>
+                        <div data-i18n="Analytics">Vendors</div>
+                    </a>
+                </li>
+
+                <br>
+                <li class="menu-item ">
+                    <a th:href="@{book}"  class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-book-content"></i>
+                        <div data-i18n="Analytics">Books</div>
+                    </a>
+                </li>
+
+                <br>
+                <li class="menu-item ">
+                    <a th:href="@{publisher}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-printer"></i>
+                        <div data-i18n="Analytics">Publishers</div>
+                    </a>
+                </li>
+                <br>
+                <li class="menu-item ">
+                    <a th:href="@{login}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-log-out"></i>
+                        <div data-i18n="Analytics">Logout</div>
+                    </a>
+                </li>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Left-aligned text -->
+                <div class="navbar-nav">
+        <span class="navbar-text fw-bold fs-4" >
+            Allotment Info
+        </span>
+                </div>
+            </nav>
+
+            <div class="alert-container">
+
+                <div th:if="${param.bookissue}" class="alert alert-success alert-dismissible" role="alert">
+                    Allotted Book Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <div th:if="${param.statusupdate}" class="alert alert-primary alert-dismissible" role="alert">
+                    Updated Status Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+            </div>
+
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <!-- Students Table -->
+                    <div class="card">
+                        <!-- Page Title & Add Button -->
+                        <div class="d-flex justify-content-between align-items-center p-3">
+                            <h3 class="card-header">Book Allotment</h3>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#issuebook">
+                                <i class="bx bx-plus"></i> Issue Book
+                            </button>
+                        </div>
+
+
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th><i class="bx bx-user"></i> Student</th>
+                                    <th><i class="bx bx-book"></i> Book</th>
+                                    <th><i class="bx bx-calendar"></i> Date</th>
+                                    <th><i class="bx bx-info-circle"></i> Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+
+                                <tbody class="table-border-bottom-0">
+                                <tr th:each="allot : ${allotments}">
+                                    <td>
+                                        <strong th:text="${allot.id}"></strong>
+                                    </td>
+
+                                    <td>
+                                        <strong>Name : </strong><span th:text="${allot.studentname}"></span>
+                                        <br>
+                                        <strong>Code : </strong><span th:text="${allot.studentcode}"></span>
+                                    </td>
+
+
+                                    <td>
+                                        <strong>Book Name : </strong><span th:text="${allot.bookname}"></span>
+                                        <br>
+                                        <strong>Book ID : </strong><span th:text="${allot.bookid}"></span>
+                                    </td>
+
+                                    <td>
+                                        <strong>Issue Date : </strong><span th:text="${allot.issuedate}"></span>
+                                        <br>
+                                        <strong>Return Date : </strong><span th:text="${allot.returndate}"></span>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge bg-label-success"
+                                              th:if="${allot.status == 'returned'}"
+                                              th:text="${allot.status}"></span>
+
+                                        <span class="badge bg-label-danger"
+                                              th:if="${allot.status == 'pending'}"
+                                              th:text="${allot.status}"></span>
+
+                                        <span class="badge bg-label-warning"
+                                              th:if="${allot.status == 'borrowed'}"
+                                              th:text="${allot.status}"></span>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-sm btn-primary me-2"
+                                                data-bs-toggle="modal"
+                                                th:data-bs-target="'#viewAllotment' + ${allot.id}">
+                                            <i class="bx bx-show"></i> View
+                                        </button>
+
+                                        <!-- Show only if status is NOT returned -->
+                                        <button class="btn btn-sm btn-warning"
+                                                th:if="${allot.status != 'returned'}"
+                                                data-bs-toggle="modal"
+                                                th:data-bs-target="'#updateStatus' + ${allot.id}">
+                                            <i class="bx bx-edit"></i> Status
+                                        </button>
+                                    </td>
+
+
+                                    <!-- ======================= VIEW ALLOTMENT MODAL ======================= -->
+                                    <div th:each="allot : ${allotments}">
+                                        <div class="modal fade"
+                                             th:id="'viewAllotment' + ${allot.id}"
+                                             tabindex="-1" aria-hidden="true">
+
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title">Book Allotment</h3>
+                                                    </div>
+                                                    <!-- Body -->
+                                                    <div class="modal-body">
+                                                        <!-- Student Info -->
+                                                        <h5 class="fw-bold mb-2">Student Information</h5>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Student Code</label>
+                                                                <p class="form-control" th:text="${allot.studentcode}"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Student Name</label>
+                                                                <p class="form-control" th:text="${allot.studentname}"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Book Info -->
+                                                        <h5 class="fw-bold mb-2">Book Information</h5>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Book ID</label>
+                                                                <p class="form-control" th:text="${allot.bookid}"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Book Name</label>
+                                                                <p class="form-control" th:text="${allot.bookname}"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Unit & Fare -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Unit</label>
+                                                                <p class="form-control" th:text="${allot.unit}"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Fare</label>
+                                                                <p class="form-control" th:text="${allot.fare}"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Dates -->
+                                                        <h5 class="fw-bold mb-2">Dates</h5>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Issued Date</label>
+                                                                <p class="form-control" th:text="${allot.issuedate}"></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Return Date</label>
+                                                                <p class="form-control" th:text="${allot.returndate}"></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Status -->
+                                                        <div class="mb-3">
+                                                            <h5 class="form-label fw-bold">Status</h5><br>
+                                                            <span class="badge"
+                                                                  th:classappend="${allot.status == 'returned' ? 'bg-success' :
+                                                                                   (allot.status == 'borrowed' ? 'bg-warning' :
+                                                                                   (allot.status == 'pending' ? 'bg-danger' : ''))}"
+                                                                  th:text="${allot.status}">
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Footer -->
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-primary"
+                                                           th:href="@{/allotment/transcript/{id}(id=${allot.id})}"
+                                                           target="_blank">
+                                                            <i class="bx bx-download me-1"></i> Download Transcript
+                                                        </a>
+
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Update Status Modal -->
+                                        <div class="modal fade"
+                                             th:id="'updateStatus' + ${allot.id}"
+                                             tabindex="-1"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+
+                                                    <form th:action="@{/updatestatus}" th:object="${blank_allotment}" method="post">
+                                                        <input type="hidden" name="id" th:value="${allot.id}"/>
+                                                        <input type="hidden" name="bookid" th:value="${allot.bookid}">
+                                                        <input type="hidden" name="unit" th:value="${allot.unit}">
+
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Update Status</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+
+                                                            <label class="form-label">Select Status</label>
+                                                            <select class="form-select bg-label-warning" th:field="*{status}" name="status" required>
+
+                                                                <option th:selected="${allot.status == 'borrowed'}"
+                                                                        value="borrowed"
+                                                                        class="bg-label-warning">Borrowed</option>
+
+                                                                <option th:selected="${allot.status == 'pending'}"
+                                                                        value="pending"
+                                                                        class="bg-label-danger">Pending</option>
+
+                                                                <option th:selected="${allot.status == 'returned'}"
+                                                                        value="returned"
+                                                                        class="bg-label-success">Returned</option>
+
+                                                            </select>
+
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+
+                                                            <button type="submit"
+                                                                    class="btn btn-primary">Update</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+
+                            <!-- Issue Book Modal -->
+                            <div class="modal fade" id="issuebook" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Issue Book</h5>
+                                            <button class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+
+                                            <form th:action="@{/issuebook}" th:object="${blank_allotment}" method="post">
+
+                                                <!-- Student Dropdown -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Select Student</label>
+                                                    <select class="form-select" name="studentcode" th:field="*{studentcode}" required>
+                                                        <option value="">-- Select Student --</option>
+
+                                                        <!-- students is a List<Student> passed from controller -->
+                                                        <option th:each="s : ${students}"
+                                                                th:value="${s.code}"
+                                                                th:text="${s.name + ' - ' + s.code}">
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+
+                                                <!-- Book Dropdown -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Select Book</label>
+                                                    <select class="form-select" name="bookid" th:field="*{bookid}" required>
+                                                        <option value="">-- Select Book --</option>
+
+                                                        <option th:each="b : ${books}"
+                                                                th:value="${b.id}"
+                                                                th:text="${b.bookName + ' - ' + b.author}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Unit -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Unit</label>
+                                                    <input th:field="*{unit}"
+                                                           type="number"
+                                                           class="form-control"
+                                                           name="unit"
+                                                           value="1"
+                                                           step="1"
+                                                           min="1"
+                                                           oninput="updateFare()"
+                                                    required>
+                                                </div>
+
+                                                <!-- Issue Date -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Issue Date</label>
+
+                                                    <!-- visible but disabled -->
+                                                    <input type="date" class="form-control"
+                                                           id="issueDate_display"
+                                                           th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                                                           disabled>
+                                                    <!-- hidden real field -->
+                                                    <input type="hidden"
+                                                           th:field="*{issuedate}"
+                                                           id="issueDateforInput"
+                                                           th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd').toString()}">
+
+                                                    <input type="hidden"
+                                                           id="issueDateForJS"
+                                                           th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+                                                    </div>
+
+
+
+                                                <!-- Return Date -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Return Date</label>
+                                                    <input type="date" class="form-control"
+                                                           th:field="*{returndate}"
+                                                           th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd').toString()}"
+                                                           id="returnDate"
+                                                           oninput="updateFare()"
+                                                           required>
+                                                </div>
+
+                                                <!-- Fare -->
+                                                <div class="mb-3">
+                                                    <label class="form-label">Fare <span style="color: #d93519">(The first 7 days are free. Any additional days will be charged at 20 Tk per day)</span></label>
+                                                    <input type="number" class="form-control"
+                                                           th:field="*{fare}"
+                                                           id="fare"
+                                                           readonly>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label" id="unitcheck" style="color: #d93519"></label>
+                                                </div>
+
+                                                <script>
+                                                    function updateFare() {
+                                                        const issueDate = new Date(document.getElementById("issueDateForJS").value);
+                                                        const returnDateInput = document.getElementById("returnDate");
+                                                        const returnDate = new Date(returnDateInput.value);
+                                                        const unit = document.getElementById("unit").value;
+
+                                                        // Prevent past date
+                                                        if (returnDate < issueDate) {
+                                                            alert("Return Date can't be before Issue Date!");
+                                                            returnDateInput.value = "";
+                                                            document.getElementById("fare").value = 0;
+                                                            console.log("date not valid")
+                                                            return;
+                                                        }
+
+                                                        if (unit > 1) {
+                                                            document.getElementById("unitcheck").textContent = "Unit is more than 1, this will cause unit times fare" ;
+                                                        }
+
+                                                        // Calculate difference in days
+                                                        const diffMs = returnDate - issueDate;
+                                                        const days = diffMs / (1000 * 60 * 60 * 24);
+                                                        // Fare calculation
+                                                        let fare = 0;
+                                                        if (days > 7) {
+                                                            fare = (days - 7) * 20 * unit;  // 20 tk per extra day
+                                                        }
+                                                        console.log(fare)
+                                                        document.getElementById("fare").value = fare;
+                                                    }
+                                                    // Set min date for return date (no past day allowed)
+                                                    document.addEventListener("DOMContentLoaded", () => {
+                                                        const today = new Date().toISOString().split("T")[0];
+                                                        document.getElementById("returnDate").min = today;
+                                                    });
+                                                </script>
+
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+
+                                                    <button type="submit" class="btn btn-primary">Place Order</button>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    </div>
+
+
+
+                </div>
+                <!-- Content wrapper -->
+            </div>
+            <!-- / Layout page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="/assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

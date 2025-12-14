@@ -1,0 +1,241 @@
+/* ----------------------------
+   Dashboard visual polish (override)
+   Place at the end of your CSS file
+   ---------------------------- */
+
+/* Theme variables for quick tweaks */
+:root{
+    --primary: #2671ff;           /* main indigo highlight */
+    --primary-strong: #529dff;
+    --navy-900: #0f2340;         /* dark sidebar */
+    --navy-800: #132a4a;
+    --muted-700: #697a8d;
+    --page-bg: #f5f6fa;
+    --card-bg: #ffffff;
+    --glass: rgba(255,255,255,0.85);
+    --outer-gradient-start: #006fff;
+    --outer-gradient-end: #0051ff;
+    --accent-shadow: rgba(105,108,255,0.18);
+}
+
+/* Outer rounded gradient frame like the screenshot */
+.app-screenshot-wrapper {
+    position: relative;
+    display: block;
+    padding: 12px;                    /* space between gradient border and content */
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--outer-gradient-start), var(--outer-gradient-end));
+    box-shadow: 0 10px 30px rgba(123,97,255,0.12);
+    margin: 1.25rem;
+}
+
+/* Inner container (actual layout) - white rounded card inside the gradient frame */
+.app-screenshot-wrapper > .layout-wrapper,
+.app-screenshot-wrapper > .layout-page {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card-bg);
+    box-shadow: 0 6px 24px rgba(18, 28, 45, 0.06);
+}
+
+/* BACKDROP / TOP-BAR GLASS EFFECT */
+.layout-navbar {
+    background-color: var(--glass) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(6px);
+    backdrop-filter: saturate(180%) blur(6px);
+    border-bottom: 1px solid rgba(18,28,45,0.04);
+}
+
+/* NAVBAR text & icons */
+.bg-navbar-theme,
+.navbar.bg-primary {
+    background-color: var(--card-bg) !important;
+    color: var(--muted-700);
+    box-shadow: none;
+}
+.bg-navbar-theme .navbar-nav .nav-link,
+.navbar .nav-link {
+    color: var(--muted-700);
+}
+.navbar .nav-link:hover { color: var(--primary); }
+
+/* SIDEBAR: dark navy with indigo highlights */
+.bg-menu-theme {
+    background-color: var(--navy-900) !important;
+    color: #cfdaf0;
+    box-shadow: 0 6px 28px rgba(6,18,40,0.16);
+}
+.bg-menu-theme .menu-inner { padding-top: 1rem; }
+.bg-menu-theme .menu-link {
+    color: #cfdaf0;
+    border-radius: 10px;
+    padding: .6rem .9rem;
+    transition: all .18s ease;
+}
+.bg-menu-theme .menu-link:hover {
+    background: rgba(255,255,255,0.02);
+    transform: translateX(2px);
+    color: var(--primary);
+}
+.bg-menu-theme .menu-item.active > .menu-link {
+    background: linear-gradient(180deg, rgba(105,108,255,0.14), rgba(105,108,255,0.08)) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 18px var(--accent-shadow);
+    border-left: 4px solid var(--primary);
+    padding-left: calc(.6rem - 2px);
+}
+.bg-menu-theme .menu-header {
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+}
+
+/* Small circular submenu indicator */
+.bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
+    left: 1.25rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08) !important;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* App brand round toggle */
+.app-brand .layout-menu-toggle {
+    background-color: var(--primary);
+    border: 6px solid #f6f7fb;
+    box-shadow: 0 6px 20px rgba(105,108,255,0.14);
+    left: 14.5rem;
+}
+
+/* Primary buttons */
+.btn-primary, .btn.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(105,108,255,0.12);
+    border-radius: 8px;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-primary:hover { background-color: var(--primary-strong); transform: translateY(-2px); }
+
+/* Outline primary */
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+    background: transparent;
+    border-radius: 8px;
+}
+.btn-outline-primary:hover { background: var(--primary); color: white; }
+
+/* Text & links */
+.text-primary { color: var(--primary) !important; }
+a { color: var(--primary); }
+a:hover { color: var(--primary-strong); }
+
+/* Cards and widgets */
+.card, .card .card-body {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(18,28,45,0.04);
+    border: 1px solid rgba(18,28,45,0.04);
+}
+.card .card-title { color: #263444; font-weight: 700; }
+.card .card-subtitle { color: #6e7b88; }
+
+/* Metric boxes (small stat cards) */
+.widget-stat {
+    border-radius: 12px;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(250,250,252,1), rgba(245,246,252,1));
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow: 0 6px 18px rgba(20,32,54,0.04);
+}
+.widget-stat .value { font-size: 1.375rem; font-weight: 700; color: #25324a; }
+.widget-stat .delta { color: var(--primary); font-weight: 700; }
+
+/* Charts: smooth gradient fill under line */
+.chart-line {
+    --line: var(--primary);
+    --line-fill: linear-gradient(180deg, rgba(105,108,255,0.12), rgba(105,108,255,0.02));
+}
+
+/* Progress bar */
+.progress, .progress-bar {
+    height: 0.5rem;
+    border-radius: 999px;
+}
+.progress-bar { background-color: var(--primary); box-shadow: 0 4px 14px rgba(105,108,255,0.12); }
+
+/* Table primary look */
+.table-primary {
+    --bs-table-bg: #f1f3ff;
+    color: #203046;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+.table-primary tbody tr { box-shadow: 0 6px 18px rgba(18,28,45,0.03); border-radius: 10px; background: #fff; }
+
+/* Tiny touches */
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(105,108,255,0.06);
+}
+
+/* Pagination active */
+.page-item.active .page-link {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(105,108,255,0.12);
+}
+
+/* Notification icons */
+.dropdown-notifications-item .dropdown-notifications-read span {
+    background-color: var(--primary);
+}
+
+/* Footer theme */
+.bg-footer-theme {
+    background-color: #f8f9fc !important;
+    color: var(--muted-700);
+    border-top: 1px solid rgba(18,28,45,0.04);
+}
+
+/* Rounded search input */
+.navbar .search-input-wrapper .search-input {
+    border-radius: 999px;
+    background: #fff;
+    padding: .45rem .9rem;
+    border: 1px solid rgba(18,28,45,0.06);
+}
+
+/* Responsive tweak: reduce sidebar shadow on small screens */
+@media (max-width: 1199.98px) {
+    .bg-menu-theme { box-shadow: none; }
+}
+
+/* Helpful utility: apply the screenshot-style frame class to your top-level container.
+   Example:
+   <div class="app-screenshot-wrapper">
+     <div class="layout-wrapper"> ... all your app html ... </div>
+   </div>
+*/
+
+.alert-primary {
+    background-color: #e7e7ff;
+    border-color: #d2d3ff;
+    color: #696cff;
+}
+.alert-primary .btn-close {
+    background-image: url("data:image/svg+xml,%3Csvg width='150px' height='151px' viewBox='0 0 150 151' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Cdefs%3E%3Cpolygon id='path-1' points='131.251657 0 74.9933705 56.25 18.7483426 0 0 18.75 56.2450278 75 0 131.25 18.7483426 150 74.9933705 93.75 131.251657 150 150 131.25 93.7549722 75 150 18.75'%3E%3C/polygon%3E%3C/defs%3E%3Cg id='🎨-%5BSetup%5D:-Colors-&amp;-Shadows' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Artboard' transform='translate(-225.000000, -250.000000)'%3E%3Cg id='Icon-Color' transform='translate(225.000000, 250.500000)'%3E%3Cuse fill='%23696cff' xlink:href='%23path-1'%3E%3C/use%3E%3Cuse fill-opacity='0.5' fill='%23696cff' xlink:href='%23path-1'%3E%3C/use%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.alert-primary .alert-link {
+    color: #696cff;
+}
+
+.card .alert-primary hr {
+    background-color: #696cff !important;
+}

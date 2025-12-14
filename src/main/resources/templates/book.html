@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html
+        xmlns:th="https://www.thymeleaf.org"
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="/assets/"
+        data-template="vertical-menu-template-free"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>InfoScript - Library</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="/assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="/assets/js/config.js"></script>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="menu-header text-center py-3">
+                <img src="/logo_white.png"
+                     alt="Logo"
+                     class="sidebar-logo">
+            </div>
+
+            <ul class="menu-inner py-1">
+                <li class="menu-item ">
+                    <a th:href="@{dashboard}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Dashboard</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item ">
+                    <a th:href="@{allotment}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-book-reader"></i>
+                        <div data-i18n="Analytics">Book Allotment</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item ">
+                    <a th:href="@{student}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-face"></i>
+                        <div data-i18n="Analytics">Students</div>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="menu-item ">
+                    <a th:href="@{vendor}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-buildings"></i>
+                        <div data-i18n="Analytics">Vendors</div>
+                    </a>
+                </li>
+
+                <br>
+                <li class="menu-item active">
+                    <a th:href="@{book}"  class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-book-content"></i>
+                        <div data-i18n="Analytics">Books</div>
+                    </a>
+                </li>
+
+                <br>
+                <li class="menu-item ">
+                    <a th:href="@{publisher}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-printer"></i>
+                        <div data-i18n="Analytics">Publishers</div>
+                    </a>
+                </li>
+
+                <br>
+                <li class="menu-item ">
+                    <a th:href="@{login}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-log-out"></i>
+                        <div data-i18n="Analytics">Logout</div>
+                    </a>
+                </li>
+            </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+
+            <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Left-aligned text -->
+                <div class="navbar-nav">
+        <span class="navbar-text fw-bold fs-4" >
+            Book Info
+        </span>
+                </div>
+            </nav>
+            <div class="alert-container">
+
+                <div th:if="${param.addedbook}" class="alert alert-success alert-dismissible" role="alert">
+                    Added Book Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <div th:if="${param.deletedbook}" class="alert alert-warning alert-dismissible" role="alert">
+                    Deleted Book Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <div th:if="${param.updatedbook}" class="alert alert-info alert-dismissible" role="alert">
+                    Updated Book Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                <div th:if="${param.bookordered}" class="alert alert-primary alert-dismissible" role="alert">
+                    Ordered Book Successfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+
+            </div>
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <!-- Books Page Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+
+                    <!-- Modal Form -->
+                    <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addBookModalLabel">Add New Book</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <!-- FORM -->
+                                    <form th:action="@{/newbook}" th:object="${blank_book}" method="post">
+
+                                        <!-- Book Name -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Book Name</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   th:field="*{bookName}"
+                                                   placeholder="Enter book name"
+                                                   required>
+                                        </div>
+
+                                        <!-- Author -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Author</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   th:field="*{author}"
+                                                   placeholder="Enter author name"
+                                                   required>
+                                        </div>
+
+                                        <!-- Publisher Dropdown -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Publisher</label>
+                                            <select class="form-select"
+                                                    th:field="*{publisherName}"
+                                                    required>
+                                                <option value="" disabled selected>Select publisher</option>
+
+                                                <!-- Loop through publishers -->
+                                                <option th:each="p : ${publishers}"
+                                                        th:value="${p.publisherName}"
+                                                        th:text="${p.publisherName}">
+                                                </option>
+                                            </select>
+                                        </div>
+
+
+                                        <!-- Price -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Price</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   th:field="*{price}"
+                                                   placeholder="Enter price"
+                                                   step="0.01"
+                                                   required>
+                                        </div>
+
+
+                                        <!-- Footer -->
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Add Book</button>
+                                        </div>
+
+                                    </form>
+                                    <!-- END FORM -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                        <div class="card">
+                            <div class="d-flex justify-content-between align-items-center p-3">
+                            <h3 class="card-header">Book List</h3>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
+                                <i class="bx bx-plus"></i> Add Book
+                            </button>
+
+                            </div>
+                            <div class="table-responsive text-nowrap">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th><i class="bx bx-book"></i> Book Name</th>
+                                        <th><i class="bx bx-user"></i> Author</th>
+                                        <th><i class="bx bx-printer"></i> Publisher</th>
+                                        <th><i class="bx bx-dollar"></i> Price</th>
+                                        <th><i class="bx bx-pencil"></i> Stock</th>
+                                        <th><i class="bx bx-cog"></i> Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="book : ${books}">
+                                        <td><strong th:text="${book.id}"></strong></td>
+                                        <td th:text="${book.bookName}"></td>
+                                        <td th:text="${book.author}"></td>
+                                        <td th:text="${book.publisherName}"></td>
+                                        <td th:text="${book.price}"></td>
+                                        <td th:text="${book.quantity}"></td>
+
+                                        <td>
+                                            <div class="dropdown">
+
+                                                <!-- Action Menu -->
+                                                <button class="btn p-0 dropdown-toggle" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+
+                                                <div class="dropdown-menu">
+
+                                                    <!-- Edit -->
+                                                    <a class="dropdown-item"
+                                                       data-bs-toggle="modal"
+                                                       th:data-bs-target="'#editBookModal' + ${book.id}">
+                                                        <i class="bx bx-edit-alt me-1"></i> Edit
+                                                    </a>
+
+                                                    <a class="dropdown-item"
+                                                       data-bs-toggle="modal"
+                                                       th:data-bs-target="'#orderBook' + ${book.id}">
+                                                        <i class="bx bx-book me-1"></i> Order Book
+                                                    </a>
+
+                                                    <a class="dropdown-item"
+                                                       data-bs-toggle="modal"
+                                                       th:data-bs-target="'#orderHistory' + ${book.id}">
+                                                        <i class="bx bx-history me-1"></i> Order History
+                                                    </a>
+
+                                                    <!-- Delete -->
+                                                    <a class="dropdown-item"
+                                                       th:href="@{/deletebook/{id}(id=${book.id})}"
+                                                       onclick="return confirm('Delete this book?');">
+                                                        <i class="bx bx-trash me-1"></i> Delete
+                                                    </a>
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <!-- ORDER HISTORY MODALS -->
+                                <div th:each="book : ${books}">
+                                    <div class="modal fade"
+                                         th:id="'orderHistory' + ${book.id}"
+                                         tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+
+                                                <!-- Header -->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        Order History — [[${book.bookName}]]
+                                                    </h5>
+                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+
+                                                <!-- Body -->
+                                                <div class="modal-body">
+
+                                                    <!-- If order history exists -->
+                                                    <div th:if="${orderHistoryMap[book.id] != null and !orderHistoryMap[book.id].isEmpty()}">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Serial</th>
+                                                                <th>Book ID</th>
+                                                                <th>Book Name</th>
+                                                                <th>Vendor Name</th>
+                                                                <th>Date</th>
+                                                                <th>Price</th>
+                                                                <th>Unit</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="order, iStat : ${orderHistoryMap[book.id]}">
+                                                                <td th:text="${iStat.index + 1}"></td>
+                                                                <td th:text="${order.bookId}"></td>
+                                                                <td th:text="${order.bookName}"></td>
+                                                                <td th:text="${order.vendorName}"></td>
+                                                                <td th:text="${order.date}"></td>
+                                                                <td th:text="${order.totalPrice}"></td>
+                                                                <td th:text="${order.unit}"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <!-- If no order history -->
+                                                    <div th:if="${orderHistoryMap[book.id] == null or orderHistoryMap[book.id].isEmpty()}"
+                                                         class="text-center text-muted py-4">
+                                                        <i class="bx bx-info-circle fs-3"></i><br>
+                                                        No order history found.
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- EDIT BOOK MODAL -->
+                                <div th:each="book : ${books}">
+                                    <div class="modal fade"
+                                         th:id="'editBookModal' + ${book.id}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Edit Book</h5>
+                                                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form th:action="@{/updatebook}" method="post">
+
+                                                        <input type="hidden" name="id" th:value="${book.id}">
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Book Name</label>
+                                                            <input type="text" name="bookName" class="form-control"
+                                                                   th:value="${book.bookName}">
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Author</label>
+                                                            <input type="text" name="author" class="form-control"
+                                                                   th:value="${book.author}">
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Price</label>
+                                                            <input type="number" step="0.01" name="price" class="form-control"
+                                                                   th:value="${book.price}">
+                                                        </div>
+
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                                                            <button class="btn btn-primary" type="submit">Update Book</button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ORDER BOOK MODAL -->
+                                <div th:each="book : ${books}">
+                                    <div class="modal fade"
+                                         th:id="'orderBook' + ${book.id}"
+                                         data-bs-backdrop="static"
+                                         tabindex="-1" aria-hidden="true">
+
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Order Book</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+
+                                                    <form th:action="@{/orderbook}" th:object="${bookOrder}" method="post">
+
+                                                        <!-- BOOK ID (Hidden) -->
+                                                        <input type="hidden" name="bookId" th:value="${book.id}" />
+
+                                                        <!-- Book ID (visible) -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Book ID</label>
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${book.id}" readonly>
+                                                        </div>
+
+                                                        <!-- Book Name -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Book Name</label>
+
+                                                            <!-- visible -->
+                                                            <input type="text" class="form-control"
+                                                                   th:value="${book.bookName}" readonly>
+
+                                                            <!-- hidden: submitted -->
+                                                            <input type="hidden" name="bookName" th:value="${book.bookName}">
+                                                        </div>
+
+                                                        <!-- Vendor -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Vendor</label>
+                                                            <select class="form-select" name="vendorName" required>
+                                                                <option value="" disabled selected>Select Vendor</option>
+                                                                <option th:each="v : ${vendors}"
+                                                                        th:value="${v.vendorName}"
+                                                                        th:text="${v.vendorName}">
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Book Price (Hidden) -->
+                                                        <input type="hidden" name="bookPrice"
+                                                               th:id="'bookPrice__' + ${book.id}"
+                                                               th:value="${book.price}" />
+
+                                                        <!-- Quantity -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Quantity</label>
+                                                            <input type="number" class="form-control"
+                                                                   th:id="'unit__' + ${book.id}"
+                                                                   name="unit" min="1" value="1"
+                                                                   th:oninput="'updateTotalPrice(' + ${book.id} + ')'"
+                                                                   required>
+                                                        </div>
+
+                                                        <!-- Total Price -->
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Total Price</label>
+                                                            <input type="number" class="form-control"
+                                                                   th:id="'totalPrice__' + ${book.id}"
+                                                                   name="totalPrice" th:value="${book.price}" step="0.01" required>
+                                                        </div>
+
+                                                        <!-- JS -->
+                                                        <script>
+                                                            function updateTotalPrice(bookId) {
+                                                                const quantity = parseFloat(document.getElementById('unit__' + bookId).value) || 0;
+                                                                const price = parseFloat(document.getElementById('bookPrice__' + bookId).value) || 0;
+                                                                const total = quantity * price;
+                                                                document.getElementById('totalPrice__' + bookId).value = total.toFixed(2);
+                                                            }
+                                                        </script>
+
+                                                        <!-- Modal Footer -->
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+
+                                                            <button type="submit" class="btn btn-primary">Place Order</button>
+                                                        </div>
+
+                                                    </form>
+
+                                                </div> <!-- modal-body -->
+
+                                            </div><!-- modal-content -->
+                                        </div><!-- modal-dialog -->
+
+                                    </div><!-- modal -->
+                                </div>
+
+
+                                <!-- ORDER BOOK MODAL -->
+
+
+                            </div>
+                        </div>
+
+
+
+                    <!-- Content wrapper -->
+                </div>
+                <!-- / Layout page -->
+            </div>
+
+            <!-- Overlay -->
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+        <!-- / Layout wrapper -->
+
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+        <script src="/assets/vendor/libs/popper/popper.js"></script>
+        <script src="/assets/vendor/js/bootstrap.js"></script>
+        <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+        <script src="/assets/vendor/js/menu.js"></script>
+        <!-- endbuild -->
+
+        <!-- Vendors JS -->
+        <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+        <!-- Main JS -->
+        <script src="/assets/js/main.js"></script>
+
+        <!-- Page JS -->
+        <script src="/assets/js/dashboards-analytics.js"></script>
+
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
+
