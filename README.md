@@ -93,3 +93,7 @@ spring.jpa.hibernate.ddl-auto=update
 ```bash
 mvn spring-boot:run
 ```
+4. Use the Application
+```bash
+http://localhost:9090/login
+```
