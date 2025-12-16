@@ -93,7 +93,7 @@ spring.jpa.hibernate.ddl-auto=update
 ```bash
 mvn spring-boot:run
 ```
-4. Use the Application
+4. Use the Application(current logic for login in keep the username and password same 😮‍💨)
 ```bash
 http://localhost:9090/login
 ```
