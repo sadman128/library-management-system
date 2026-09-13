@@ -3,6 +3,7 @@
 A full-stack **Library Management System** built using **Spring Boot**, **Hibernate (JPA)**, and **MySQL** for the backend, with a clean and responsive frontend developed using **HTML, CSS, Bootstrap, and vanilla JavaScript**.
 
 ---
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b4de6256-6dca-440b-848f-2b616c0b6ccc" />
 
 ## 🚀 Features
 
